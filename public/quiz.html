@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ongoing Assessment | QuizPortal</title>
+    <link rel="stylesheet" href="css/style.css?v=2">
+</head>
+
+<body>
+    <!-- Setup View -->
+    <div id="setup-view" class="container animate-fade" style="max-width: 500px; margin-top: 10vh;">
+        <div class="card glass text-center">
+            <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem;">
+                <img src="clg%20logo.jpeg" alt="College Logo" style="height: 60px; object-fit: contain;">
+                <img src="inspire.jpg" alt="Inspire Logo" style="height: 60px; object-fit: contain;">
+            </div>
+
+            <h2 id="quiz-title">Loading Quiz...</h2>
+            <p id="quiz-meta" class="mb-4">Calculating duration...</p>
+
+            <div class="input-group" style="text-align: left;">
+                <label for="student-name">Your Full Name</label>
+                <input type="text" id="student-name" placeholder="Name as per records">
+            </div>
+            <div class="input-group" style="text-align: left;">
+                <label for="student-roll">Register Number</label>
+                <input type="text" id="student-roll" placeholder="611623205---">
+            </div>
+            <div class="input-group" style="text-align: left;">
+                <label for="student-dept">Department</label>
+                <input type="text" id="student-dept" placeholder="e.g. B.Tech IT">
+            </div>
+            <div class="input-group" style="text-align: left;">
+                <label for="student-year">Year</label>
+                <select id="student-year"
+                    style="width: 100%; padding: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #121111;">
+                    <option value="" disabled selected>Select Year</option>
+                    <option value="I">I Year</option>
+                    <option value="II">II Year</option>
+                    <option value="III">III Year</option>
+                    <option value="IV">IV Year</option>
+                </select>
+            </div>
+            <div class="input-group" style="text-align: left;">
+                <label for="student-section">Section</label>
+                <input type="text" id="student-section" placeholder="e.g. A, B or C">
+            </div>
+            <div class="input-group" style="text-align: left;">
+                <label for="student-email">Email Address</label>
+                <input type="email" id="student-email" placeholder="example@gmail.com">
+            </div>
+            <div class="input-group" style="text-align: left;">
+                <label for="student-phone">Phone Number</label>
+                <input type="tel" id="student-phone" placeholder="10-digit mobile number" maxlength="10">
+            </div>
+
+            <button id="start-btn" class="btn btn-primary" style="width: 100%;">Initialize Assessment</button>
+        </div>
+    </div>
+
+    <!-- Guidelines View -->
+    <div id="guidelines-view" class="container hidden" style="max-width: 600px; margin-top: 5vh;">
+        <div class="card"
+            style="background: #000; border: 1px solid #10b981; color: #10b981; font-family: 'Courier New', Courier, monospace; box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);">
+            <div
+                style="border-bottom: 1px solid #10b981; padding-bottom: 1rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: bold; letter-spacing: 2px;">SYSTEM_GUIDELINES.LOG</span>
+                <div style="display: flex; gap: 0.5rem;">
+                    <div style="width: 12px; height: 12px; border-radius: 50%; background: #ef4444;"></div>
+                    <div style="width: 12px; height: 12px; border-radius: 50%; background: #f59e0b;"></div>
+                    <div style="width: 12px; height: 12px; border-radius: 50%; background: #10b981;"></div>
+                </div>
+            </div>
+
+            <div id="guidelines-terminal" style="min-height: 300px; font-size: 0.95rem; line-height: 1.8;">
+                <!-- Guidelines will be typed here -->
+            </div>
+
+            <div id="guidelines-actions" class="hidden"
+                style="margin-top: 2rem; border-top: 1px solid #10b981; padding-top: 1.5rem; text-align: center;">
+                <p style="color: #10b981; margin-bottom: 1rem; font-size: 0.8rem;">[ Proceed only if you accept all
+                    security protocols ]</p>
+                <button id="accept-guidelines-btn" class="btn"
+                    style="background: #10b981; color: #000; width: 100%; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">
+                    Accept & Initialize Session
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Quiz View -->
+    <div id="active-quiz" class="container hidden">
+        <header class="flex-between mb-4">
+            <div>
+                <span class="text-muted" id="q-count">Question 1 of --</span>
+                <h2 id="current-quiz-title" style="margin: 0;">--</h2>
+            </div>
+            <div class="text-center" style="display: flex; gap: 1rem; align-items: center;">
+                <div id="session-timer" class="card"
+                    style="padding: 0.5rem 1rem; font-family: monospace; font-size: 1.25rem; font-weight: bold; color: var(--primary);">
+                    --:--
+                </div>
+            </div>
+        </header>
+
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+
+        <div id="question-area" class="animate-fade">
+            <!-- Question content injected here -->
+        </div>
+
+        <footer class="flex-between mt-8">
+            <div></div> <!-- Spacer -->
+            <div style="display: flex; gap: 1rem;">
+
+                <button id="next-btn" class="btn btn-primary">
+                    Next Stage
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Hacker Loading Overlay -->
+    <div id="hacker-loader" class="hidden"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: monospace; overflow: hidden;">
+        <canvas id="loader-canvas"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.3;"></canvas>
+        <div style="position: relative; z-index: 10000; text-align: center;">
+            <div id="loader-status"
+                style="color: #0F0; font-size: 1.5rem; text-shadow: 0 0 10px #0F0; margin-bottom: 2rem;">INITIALIZING
+                SECURE UPLOAD...</div>
+            <div
+                style="width: 300px; height: 10px; background: #111; border: 1px solid #0F0; border-radius: 5px; overflow: hidden; margin: 0 auto;">
+                <div id="loader-bar" style="width: 0%; height: 100%; background: #0F0; box-shadow: 0 0 10px #0F0;">
+                </div>
+            </div>
+            <div id="loader-pct" style="color: #0F0; margin-top: 1rem; font-size: 1.2rem;">0%</div>
+        </div>
+    </div>
+
+    <!-- Result View -->
+    <div id="result-view" class="container hidden text-center"
+        style="max-width: 500px; margin-top: 15vh; position: relative;">
+        <!-- Hacker Background Canvas -->
+        <canvas id="hacker-canvas"
+            style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.15;"></canvas>
+
+        <div class="card glass" style="position: relative; z-index: 1;">
+            <div id="status-icon" style="font-size: 4rem; margin-bottom: 1rem;">🎯</div>
+            <h1 id="result-title">Assessment Complete</h1>
+            <p id="result-text" class="mb-4">Your responses have been securely recorded.</p>
+
+            <div class="card" style="background: var(--bg); margin-bottom: 2rem;">
+                <span class="text-muted"
+                    style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em;">Final Score</span>
+                <div id="final-score" style="font-size: 3rem; font-weight: 800; color: var(--primary);">0/0</div>
+            </div>
+
+            <button onclick="window.location.href='index.html'" class="btn btn-secondary" style="width: 100%;">Return to
+                Portal</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script src="js/ui.js?v=3"></script>
+    <script src="js/quiz.js?v=7"></script>
+</body>
+
+</html>
